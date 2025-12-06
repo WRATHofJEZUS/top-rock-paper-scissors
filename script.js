@@ -1,6 +1,6 @@
-//create choices ie Rock Paper Scissors
 const choices = ["Rock", "Paper", "Scissors"];
-//create prompt for user choice/restrict to only the three answers
+
+//////////USER CHOICE FUNCTION//////////
 function user () {
 
     while (true) {
@@ -9,7 +9,7 @@ function user () {
 
         if (userChoice === null) {
             alert("Game Cancelled!");
-            return null;
+            return;
         }
 
         let formattedChoice = userChoice.charAt(0).toUpperCase() + userChoice.slice(1).toLowerCase();
@@ -21,15 +21,27 @@ function user () {
         alert(`"${userChoice}" is not a valid choice. Please choose one of: ${choices.join(', ')}.`);
     }
 }
+
+//////////ASSIGNING USER CHOICE//////////
 userAnswer = user()
-//create random choice
+
+//////////CHECK IF USER CANCELLED//////////
+/*
+if (userAnswer === null) {
+    alert("CANCELLING..."); 
+    throw new Error("Game Cancelled by User");
+}
+*/
+
+//////////CREATING RANDOM CHOICE//////////
 const randomIndex = Math.floor(Math.random() * choices.length);
 const randomChoice = choices[randomIndex];
-console.log(randomChoice);
-//show both user and random answer
+
+//////////PRESENT USER AND RANDOM CHOICE//////////
 let result = "User picked " + userAnswer + " " + "and bot picked " + randomChoice;
 alert(result);
-//compare the two answers
+
+//////////COMPARING CHOICES AND OUTPUT WIN/LOSS/DRAW//////////
 if (userAnswer === randomChoice) {
     alert("DRAW!");
 }   else if (userAnswer === "Rock" && randomChoice === "Scissors" || userAnswer === "Scissors" && randomChoice === "Paper" || userAnswer === "Paper" && randomChoice === "Rock") {
@@ -37,4 +49,5 @@ if (userAnswer === randomChoice) {
 }   else {
     alert("YOU LOSER!");
 }
+
 //ask "play again" or "no"
