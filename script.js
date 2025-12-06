@@ -1,4 +1,4 @@
-//create variables/choices ie Rock Paper Scissors
+//create choices ie Rock Paper Scissors
 const choices = ["Rock", "Paper", "Scissors"];
 //create prompt for user choice/restrict to only the three answers
 function user () {
@@ -21,21 +21,6 @@ function user () {
         alert(`"${userChoice}" is not a valid choice. Please choose one of: ${choices.join(', ')}.`);
     }
 }
-
-    /*
-userChoice = prompt("Pick one, Rock, Paper, or Scissors!");
-
-if (userChoice === null) {
-    return null;
-}
-else if (!choices.includes(userChoice)) {
-    return null;
-} 
-else {
-    return (userChoice);
-}
-}
-*/
 userAnswer = user()
 //create random choice
 const randomIndex = Math.floor(Math.random() * choices.length);
@@ -45,5 +30,11 @@ console.log(randomChoice);
 let result = "User picked " + userAnswer + " " + "and bot picked " + randomChoice;
 alert(result);
 //compare the two answers
-//print "you win" "you lose" "draw" accordingly
+if (userAnswer === randomChoice) {
+    alert("DRAW!");
+}   else if (userAnswer === "Rock" && randomChoice === "Scissors" || userAnswer === "Scissors" && randomChoice === "Paper" || userAnswer === "Paper" && randomChoice === "Rock") {
+    alert("YOU WIN!");
+}   else {
+    alert("YOU LOSER!");
+}
 //ask "play again" or "no"
