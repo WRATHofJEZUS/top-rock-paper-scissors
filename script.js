@@ -2,22 +2,16 @@ const choices = ["Rock", "Paper", "Scissors"];
 
 //////////USER CHOICE FUNCTION//////////
 function user () {
-
     while (true) {
-
         let userChoice = prompt("Pick one: Rock, Paper, or Scissors!");
-
         if (userChoice === null) {
             alert("Game Cancelled!");
             return;
         }
-
         let formattedChoice = userChoice.charAt(0).toUpperCase() + userChoice.slice(1).toLowerCase();
-
         if (choices.includes(formattedChoice)) {
             return formattedChoice;
         }
-
         alert(`"${userChoice}" is not a valid choice. Please choose one of: ${choices.join(', ')}.`);
     }
 }
@@ -25,21 +19,17 @@ function user () {
 //////////ASSIGNING USER CHOICE//////////
 userAnswer = user()
 
-//////////CHECK IF USER CANCELLED//////////
-/*
-if (userAnswer === null) {
-    alert("CANCELLING..."); 
-    throw new Error("Game Cancelled by User");
-}
-*/
-
 //////////CREATING RANDOM CHOICE//////////
 const randomIndex = Math.floor(Math.random() * choices.length);
 const randomChoice = choices[randomIndex];
 
-//////////PRESENT USER AND RANDOM CHOICE//////////
-let result = "User picked " + userAnswer + " " + "and bot picked " + randomChoice;
-alert(result);
+//////////CHECK IF USER CANCELLED ELSE CONTINUE//////////
+if (userAnswer === null || userAnswer === undefined) { 
+    throw new Error("Game Cancelled by User");
+} else {
+    let result = "User picked " + userAnswer + " " + "and bot picked " + randomChoice;
+    alert(result);  
+}
 
 //////////COMPARING CHOICES AND OUTPUT WIN/LOSS/DRAW//////////
 if (userAnswer === randomChoice) {
@@ -50,4 +40,10 @@ if (userAnswer === randomChoice) {
     alert("YOU LOSER!");
 }
 
-//ask "play again" or "no"
+//////////PLAY AGAIN PROMPT//////////
+let playAgain = prompt("Do you want to play again?");
+if (playAgain && playAgain.toLowerCase() === "yes") {
+    location.reload(); //reloads the page to start a new game
+} else {
+    alert("Thanks for playing!");
+}
