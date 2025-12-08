@@ -1,51 +1,49 @@
-//////////DECLARING VARIABLES//////////
-const choices = ["Rock", "Paper", "Scissors"];
+const choices = ['rock', 'paper', 'scissors'];
 
-//////////USER CHOICE FUNCTION//////////
-function user () {
+function getComputerChoice(choices) {
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
+}
+let computerChoice = getComputerChoice(choices);
+
+function getHumanChoice (choices) {
     while (true) {
-        let userChoice = prompt("Pick one: Rock, Paper, or Scissors!");
-        if (userChoice === null) {
-            alert("Game Cancelled!");
+        let humanInput = prompt("Enter rock, paper, or scissors:");
+        if (humanInput === null) {
+            alert("Game cancelled.");
             return;
+    }   let formattedInput = humanInput.charAt(0).toUpperCase() + humanInput.slice(1).toLowerCase();
+        if (choices.includes(formattedInput.toLowerCase())) {
+            return formattedInput;
+        } else {
+            alert(`"${humanInput}" is not a valid choice. Please choose one of: ${choices.join(', ')}.`);
         }
-        let formattedChoice = userChoice.charAt(0).toUpperCase() + userChoice.slice(1).toLowerCase();
-        if (choices.includes(formattedChoice)) { //allows for case insensitivity
-            return formattedChoice; 
-        }
-        alert(`"${userChoice}" is not a valid choice. Please choose one of: ${choices.join(', ')}.`); //error message for invalid input
+    }
+}
+let humanChoice = getHumanChoice(choices);
+
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound (humanChoice, computerChoice, humanScore, computerScore) {
+    alert(`You chose ${humanChoice}, Computer chose ${computerChoice}. `);
+    if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
+        alert("It's a draw!");
+    } else if (
+        (humanChoice.toLowerCase() === 'rock' && computerChoice.toLowerCase() === 'scissors') ||
+        (humanChoice.toLowerCase() === 'paper' && computerChoice.toLowerCase() === 'rock') ||
+        (humanChoice.toLowerCase() === 'scissors' && computerChoice.toLowerCase() === 'paper')
+    ) {
+        humanScore++;
+        alert("You win this round!");
+    } else {
+        computerScore++;
+        alert("Computer wins this round!");
     }
 }
 
-//////////ASSIGNING USER CHOICE//////////
-userAnswer = user()
-
-//////////CREATING RANDOM CHOICE//////////
-const randomIndex = Math.floor(Math.random() * choices.length);
-const randomChoice = choices[randomIndex]; //bot's random choice
-
-//////////CHECK IF USER CANCELLED ELSE CONTINUE//////////
-if (userAnswer === null || userAnswer === undefined) { 
-    throw new Error("Game Cancelled by User"); //stops execution if user cancelled
-} else {
-    let result = "User picked " + userAnswer + " " + "and bot picked " + randomChoice;
-    alert(result);  //displays both choices
+function playGame (playRound, humanChoice, computerChoice, humanScore, computerScore) {
+    while ((humanScore + computerScore) < 5) {
+        playRound(humanChoice, computerChoice, humanScore, computerScore);
+    }   
 }
-
-//////////COMPARING CHOICES AND OUTPUT WIN/LOSS/DRAW//////////
-if (userAnswer === randomChoice) {
-    alert("DRAW!"); //tie condition
-}   else if (userAnswer === "Rock" && randomChoice === "Scissors" || userAnswer === "Scissors" && randomChoice === "Paper" || userAnswer === "Paper" && randomChoice === "Rock") {
-    alert("YOU WIN!"); //win conditions
-}   else {
-    alert("YOU LOSER!"); //loss conditions
-}
-
-//////////PLAY AGAIN PROMPT//////////
-let playAgain = prompt("Do you want to play again?" + " Type 'yes' to play again.");
-if (playAgain && playAgain.toLowerCase() === "yes") { //checks for 'yes' input
-    location.reload(); //reloads the page to start a new game
-} else {
-    alert("Thanks for playing!"); //farewell message
-}
-
