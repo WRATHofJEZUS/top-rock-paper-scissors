@@ -1,51 +1,74 @@
-//////////DECLARING VARIABLES//////////
-const choices = ["Rock", "Paper", "Scissors"];
+/*
+function that randomly returns rock paper or scissors
+    reference Math.random
+    choices do not have to be stored in array
+    function name must be "getComputerChoice"
+function that takes user input and returns it 
+    use prompt method to get user input
+    do not have to reprompt if user enters incorrect input
+    function name must be "getHumanChoice"
+write variables to keep track of player score
+    create "humanScore"
+    create "computerScore"
+    set both variables to 0
+function that plays a single round of RPS
+    take human and computer choices as arguments
+    play a single round
+    increment round winner score "winner++"
+    log a winner
+    function name "playRound"
+    define two parameters "humanChoice" and "computerChoice"
+    make "humanChoice" case insensitive
+    make "you win" "you lose" console.log
+*/
 
-//////////USER CHOICE FUNCTION//////////
-function user () {
-    while (true) {
-        let userChoice = prompt("Pick one: Rock, Paper, or Scissors!");
-        if (userChoice === null) {
-            alert("Game Cancelled!");
-            return;
-        }
-        let formattedChoice = userChoice.charAt(0).toUpperCase() + userChoice.slice(1).toLowerCase();
-        if (choices.includes(formattedChoice)) { //allows for case insensitivity
-            return formattedChoice; 
-        }
-        alert(`"${userChoice}" is not a valid choice. Please choose one of: ${choices.join(', ')}.`); //error message for invalid input
+            ///creates random choice for computer///
+
+const choices = ["rock", "paper", "scissors"];
+function getComputerChoice () {
+    let randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
+}
+
+            ///gets human choice///
+
+function getHumanChoice () {
+    let humanChoice = prompt("Pick one: rock, paper, or scissors!");
+    return humanChoice;
+}
+
+            ///sets human and computer score to 0///
+
+let humanScore = 0;
+let computerScore = 0;
+
+console.log(humanScore);
+console.log(computerScore);
+
+            ///compares human vs computer choice and gives point accordingly///
+
+function playRound (humanChoice, computerChoice) {
+    console.log(humanChoice);
+    console.log(computerChoice);
+    humanChoice = humanChoice?.toLowerCase();
+    if (humanChoice === computerChoice) {
+        console.log("Draw!");
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        humanScore++;
+        console.log("You Win!");
+    } else {
+        computerScore++;
+        console.log("You Lose!");
     }
 }
 
-//////////ASSIGNING USER CHOICE//////////
-userAnswer = user()
+            ///assigning getChoice functions to variables then running them in playRound function///
 
-//////////CREATING RANDOM CHOICE//////////
-const randomIndex = Math.floor(Math.random() * choices.length);
-const randomChoice = choices[randomIndex]; //bot's random choice
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
 
-//////////CHECK IF USER CANCELLED ELSE CONTINUE//////////
-if (userAnswer === null || userAnswer === undefined) { 
-    throw new Error("Game Cancelled by User"); //stops execution if user cancelled
-} else {
-    let result = "User picked " + userAnswer + " " + "and bot picked " + randomChoice;
-    alert(result);  //displays both choices
-}
-
-//////////COMPARING CHOICES AND OUTPUT WIN/LOSS/DRAW//////////
-if (userAnswer === randomChoice) {
-    alert("DRAW!"); //tie condition
-}   else if (userAnswer === "Rock" && randomChoice === "Scissors" || userAnswer === "Scissors" && randomChoice === "Paper" || userAnswer === "Paper" && randomChoice === "Rock") {
-    alert("YOU WIN!"); //win conditions
-}   else {
-    alert("YOU LOSER!"); //loss conditions
-}
-
-//////////PLAY AGAIN PROMPT//////////
-let playAgain = prompt("Do you want to play again?" + " Type 'yes' to play again.");
-if (playAgain && playAgain.toLowerCase() === "yes") { //checks for 'yes' input
-    location.reload(); //reloads the page to start a new game
-} else {
-    alert("Thanks for playing!"); //farewell message
-}
-
+playRound(humanSelection, computerSelection);
