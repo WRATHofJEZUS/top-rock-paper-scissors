@@ -20,6 +20,11 @@ function that plays a single round of RPS
     define two parameters "humanChoice" and "computerChoice"
     make "humanChoice" case insensitive
     make "you win" "you lose" console.log
+function that plays 5 rounds using playRound()
+    function playGame
+    declare playRound and store variables inside playGame
+    play 5 rounds by calling playRound 5 times
+
 */
 
             ///creates random choice for computer///
@@ -68,7 +73,13 @@ function playRound (humanChoice, computerChoice) {
 
             ///assigning getChoice functions to variables then running them in playRound function///
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+let humanSelection = getHumanChoice();
+let computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+            ///
+            
+function playGame () {
+    playRound(humanSelection, computerSelection, humanScore, computerScore);
+}
+
+playGame();
