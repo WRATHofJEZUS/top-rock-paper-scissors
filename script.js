@@ -76,10 +76,15 @@ function playRound (humanChoice, computerChoice) {
 let humanSelection = getHumanChoice();
 let computerSelection = getComputerChoice();
 
-            ///
+            ///looping playRound 5 times///
             
 function playGame () {
-    playRound(humanSelection, computerSelection, humanScore, computerScore);
+    for (let i = 0; i < 5; i++) {
+        humanSelection = getHumanChoice();
+        computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+    }
+    console.log(`Final Score - You: ${humanScore} | Computer: ${computerScore}`);
 }
 
 playGame();
